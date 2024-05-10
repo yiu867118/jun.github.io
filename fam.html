@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Familiarity Questionnaire</title>
+    <style>
+
+        body {
+            font-family:   'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif,  serif;
+            align-items: center;
+            background-color: #f0f6fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 3px;
+        }
+    
+        header {
+            background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));/* 使用 background 属性来应用渐变背景颜色 */
+            padding: 10px;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid #f3f7fa;
+            border-radius: 10px; /* Adjust the value as needed for the desired roundness */
+        }
+
+        header p {
+            text-align: justify;
+            font-size: 18px; /* Adjust the font size to your preference */
+            line-height: 1.5;
+            margin-left: 10%;
+            margin-right: 10%;
+
+        }
+
+        #title{
+            color: #ffffff;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        #quiz-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #question-container {
+            background-color: #fff;
+            background-size: 180px 180px;
+            background-image: url('jpg/3.jpg'); 
+            background-repeat: no-repeat;
+            background-position: right bottom;  
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin-top: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+
+        /* Add this style to adjust the font size of the options */
+        .options label {
+            font-size: 16px; /* Adjust the option font size to your preference */
+        }
+
+
+        #progress-bar {
+            width: 100%;
+            background-color: #f1f1f1;
+            height: 20px;
+            position: relative;
+        }
+
+        #progress {
+            height: 100%;
+            background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));
+            width: 0;
+            position: absolute;
+        }
+
+        #question-container{
+            margin-left: 3%;
+            margin-right: 3%;
+        }
+
+
+
+        button {
+            background: linear-gradient(to right, #73c2f6, #5badd9);
+            color: #fff;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px; /* Adjust margin for button alignment */
+            display: inline-block; /* Change display to inline-block */
+            font-size: 17px;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+
+        button:hover {
+            background: linear-gradient(to right, #0596d4, #53c2f1); /* Adjust gradient colors for hover effect */
+        }
+
+
+        #result-table {
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="title">Word Familiarity Questionnaire</h1>
+            <p id="instructions"><strong>It will present different words below. Your task is to rate your familiarity with each word on a 5-point scale by selecting the corresponding button.</strong></p>  
+        </header>
+
+        
+
+        
+        <div id="quiz-container">
+            <div id="progress-bar">
+                <div id="progress"></div>
+        </div>
+        
+        <br>
+        <div id="question-container">
+        <br><br><br><br>
+
+    </div>
+
+    
+    <script>
+        // Initialize variables
+        let wordList = ['plier', 'prawn', 'prank', 'brisk', 'bleak', 'blur', 'brow', 'plague', 'bronze', 'brass', 
+                            'praise', 'pray', 'blind', 'plate', 'brief', 'prime', 'blame', 'bright', 'prior', 'plane', 
+                            'blog', 'plus', 'blue', 'price', 'press', 'break', 'plan', 'please', 'play', 'black',
+                            'nark', 'psig', 'glade', 'chug', 'twig', 'hunk', 'snug', 'jade', 'halt', 'jerk',
+                            'rank', 'peak', 'fake', 'shock', 'bike', 'quit', 'hide', 'fault', 'guide', 'link', 
+                            'bank', 'dark', 'sound', 'food', 'hand', 'thank', 'week', 'talk', 'kind', 'found' ];
+        let currentQuestionIndex = 0;
+        let answerDurations = [];
+
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = (currentQuestionIndex + 1) / wordList.length * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+
+
+        // Additional script for language selection
+        let currentLanguage = 'english';
+
+        function setLanguage(language) {
+            currentLanguage = language;
+            updateContent();
+        }
+
+        function updateContent() {
+            const titleElement = document.getElementById('title');
+            const instructionsElement = document.getElementById('instructions');
+
+            switch (currentLanguage) {
+                case 'korean':
+                    titleElement.textContent = '단어 친속도 설문조사';
+                    instructionsElement.innerHTML = '<strong>단어 친숙도 설문지는 총 60의 단어로 이루어져 있습니다. <br>아래 제시된 각 단어가 자신에게 얼마나 친숙한 단어인지 1에서 5 사이를 고르세요. </strong>';
+                    break;
+
+                case 'chinese':
+                    titleElement.textContent = '单词熟悉度问卷调查';
+                    instructionsElement.innerHTML = '<strong style=\"font-family: SimSun, sans-serif; font-weight: 600; font-size: 17px;\">词汇熟悉度调查问卷共有60个单词。<br>在下方会展示不同的英文单词。您的任务是通过选择相应的按钮，使用五分制来评价您对每个单词的熟悉程度。</strong>';
+                    break;
+
+                default: // English
+                    titleElement.textContent = 'Word Familiarity Questionnaire';
+                    instructionsElement.innerHTML = '<strong>The vocabulary familiarity survey consists of a total of 60 words. <br> Please select a number from 1 to 5 next to each word listed below to indicate how familiar the word is to you.</strong>';
+                    break;
+            }
+
+            // Call the function to reload the current question with the updated language
+            loadNextQuestion();
+        }
+
+        // Load next question
+        function loadNextQuestion() {
+            const word = wordList[currentQuestionIndex];
+            document.getElementById('question-container').innerHTML = `
+                <p><strong style="font-size: 22px;">${word}</strong></p>
+                <div class="options" style="line-height: 1.5;">
+                    <div class="option">
+                        <input type="radio" name="answer" value="1">
+                        <label>${getOptionText(1)}</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="answer" value="2">
+                        <label>${getOptionText(2)}</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="answer" value="3">
+                        <label>${getOptionText(3)}</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="answer" value="4">
+                        <label>${getOptionText(4)}</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="answer" value="5">
+                        <label>${getOptionText(5)}</label>
+                    </div>
+                    <br>
+                </div>
+                <button onclick="recordAnswer()">Next</button>
+                <br> <br> <br>
+            `;
+        }
+
+
+        function getOptionText(optionNumber) {
+            switch (currentLanguage) {
+                case 'korean':
+                    switch (optionNumber) {
+                        case 1: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\"> 1. 이 단어를 본 적이 없거나 들어 본 적이 없다.';
+                        case 2: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\">2. <b style = \'font-size: 18px;\'>가끔</b> 이 단어를 보거나 들어 보았지만, 무슨 뜻인지 모른다.';
+                        case 3: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\">3. <b style = \'font-size: 18px;\'>가끔</b> 이 단어를 보거나 들어 보았고, 맥락에서 무슨 뜻인지 알지만, 정의를 제공할 수는 없다.';
+                        case 4: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\">4. <b style = \'font-size: 18px;\'>자주</b> 이 단어를 보거나 들어 보았고, 맥락에서 무슨 뜻인지 알지만, 정의를 제공할 수는 없다.';
+                        case 5: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\">5. <b style = \'font-size: 18px;\'>자주</b> 이 단어를 보거나 들어 보았고, 무슨 뜻인지 알며, 그 정의를 제공할 수 있다.';
+                    }
+                    break;
+
+                case 'chinese':
+                    switch (optionNumber) {
+                        case 1: return '<strong  style=\"font-family: SimSun, sans-serif; font-weight: 600; font-size: 17px;\"> 1. 我<b style = \'font-size: 18px;\'>从未</b>见过或听说过这个词。</strong>';
+                        case 2: return '<strong  style=\"font-family: SimSun, sans-serif; font-weight: 600; font-size: 17px;\"> 2. 我<b style = \'font-size: 18px;\'>偶尔</b>会看到或听说这个词，但我不知道它的含义。</strong>';
+                        case 3: return '<strong  style=\"font-family: SimSun, sans-serif; font-weight: 600; font-size: 17px;\"> 3. 我<b style = \'font-size: 18px;\'>偶尔</b>会看到或听说这个词，并且我知道它在上下文中的含义，但我不能为它提供定义。</strong>';
+                        case 4: return '<strong  style=\"font-family: SimSun, sans-serif; font-weight: 600; font-size: 17px;\"> 4. 我<b style = \'font-size: 18px;\'>经常</b>看到或听说这个词，并且我知道它在上下文中的含义，但我不能为它提供定义。</strong>';
+                        case 5: return '<strong  style=\"font-family: SimSun, sans-serif; font-weight: 600; font-size: 17px;\"> 5. 我<b style = \'font-size: 18px;\'>经常</b>看到或听说这个词，我知道它的含义，并且我可以为它提供定义。</strong>';
+                    }
+                    break;
+
+                default: // English 
+                    switch (optionNumber) {
+                        case 1: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\">1. I have <b style = \'font-size: 18px;\'>never</b> seen/heard this word.';
+                        case 2: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\">2. I have <b style = \'font-size: 18px;\'>occasionally</b> seen/heard this word, but I don\'t know what it means.';
+                        case 3: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\">3. I have <b style = \'font-size: 18px;\'>occasionally</b> seen/heard this word and I know what it means in context, but I could not provide a definition for it.';
+                        case 4: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\">4. I have <b style = \'font-size: 18px;\'>frequently</b> seen/heard this word and I know what it means in context, but I could not provide a definition for it.';
+                        case 5: return '<strong  style=\"font-family: Arial,  sans-serif; font-weight: 600; font-size: 16px;\">5. I have <b style = \'font-size: 18px;\'>frequently</b> seen/heard this word, I know what it means, and I can provide a definition for it.';
+                    }
+                    break;
+            }
+        }
+
+        // Record answer and move to the next question
+        function recordAnswer() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (selectedAnswer) {
+                answerDurations.push({
+                    question: currentQuestionIndex + 1,
+                    word: wordList[currentQuestionIndex],
+                    answer: selectedAnswer.value
+                });
+
+                currentQuestionIndex++;
+                if (currentQuestionIndex === wordList.length) {
+                    showResults();
+                } else {
+                    updateProgressBar();
+                    loadNextQuestion();
+                }
+            } else {
+                alert('Please select an answer.');
+            }
+        }
+
+
+
+        // Show results
+        function showResults() {
+            let resultHTML = `
+                <div id="resultsBox" style="border:2px solid black; padding: 10px; margin: 10px; overflow-x: auto;">
+                    <h2 style='text-align:center;'>`;
+            // Add language-specific title for result page
+            const chosenLanguage = localStorage.getItem('chosenLanguage');
+            if (chosenLanguage === 'korean') {
+                resultHTML += `설문지 결과</h2>
+                    <p style='text-align:left;'>
+                        페이지를 닫기 전에 테스트 결과를 스크린샷으로 캡처하고 저장해주십시오 (일반적으로 PC 사용자는 Windows 키 + Shift + R을 누릅니다). 그런 다음, 구글 설문이 있을 예정입니다. 스크린샷을 구글 설문에 업로드해주세요. 모든 결과가 한 장의 사진에 완전히 나타나지 않는 경우 여러 번 나눠서 캡처하실 수 있습니다. 협력해 주셔서 감사합니다!
+                    </p>`;
+            } else if (chosenLanguage === 'chinese') {
+                resultHTML += `调查问卷结果</h2>
+                    <p style='text-align:left;'>
+                        在您关闭页面之前，请务必以屏幕截图的形式捕获并保存测试结果（PC 用户通常按下 Windows 键 + Shift + R）。接下来，我们将进行一项谷歌调查。请将屏幕截图上传至谷歌调查。如果所有结果无法完全显示在一张图片中，您可以多次分开截图。感谢您的理解与合作!
+                    </p>`;
+            } else {
+                resultHTML += `Questionnaire Results</h2>
+                    <p style='text-align:left;'>
+                        Before closing this page, please make sure to capture and save the test results as a screenshot (PC users typically press Windows key + Shift + R). Next, we will conduct a Google survey. Please upload the screenshot to the Google survey. If all the results cannot be fully displayed in one picture, you can capture multiple screenshots separately. Thank you for your understanding and cooperation!
+                    </p>`;
+            }
+
+            let tableHTML = '';
+            const wordLimit = 30; // 每个表格的单词限制
+            const numTables = Math.ceil(wordList.length / wordLimit); // 总共需要的表格数
+
+            for (let j = 0; j < numTables; j++) {
+                tableHTML += `<div style='overflow-x: auto; display: inline-block; vertical-align: top;'>`;
+                tableHTML += `<table style='width:100%; text-align:center; border: 2px solid black; font-size: 16px;'>`;
+                tableHTML += `<tr style='background-color: #f2f2f2;'><th>Question</th><th>Word</th><th>Answer</th></tr>`;
+
+                const startIndex = j * wordLimit;
+                const endIndex = Math.min((j + 1) * wordLimit, wordList.length);
+
+                for (let i = startIndex; i < endIndex; i++) {
+                    tableHTML += `<tr><td>${i + 1}</td><td>${wordList[i]}</td><td>${answerDurations[i].answer}</td></tr>`;
+                }
+
+                tableHTML += `</table></div>`;
+            }
+
+            resultHTML += tableHTML;
+            resultHTML += "</div>"; // 关闭结果框div
+
+            // Replace the content of quiz-container with the results
+            document.getElementById('quiz-container').innerHTML = resultHTML;
+
+
+            resultHTML += `
+            <div style='text-align:center; margin-top:20px;'>
+                <button id="yourButton1">구글 설문지로 이동<br>한국어 버전</button>
+                <button id="yourButton2">进入谷歌调查问卷<br>中文版本入口</button>
+                <button id="yourButton3">Go to Google questionnaire<br>English Version</button>
+            </div>`;
+
+            document.getElementById('quiz-container').innerHTML = resultHTML;
+
+            // Add event listeners to the buttons
+            document.getElementById('yourButton1').addEventListener('click', function() {
+                goToSurvey(getLanguageURL('korean'));
+            });
+
+            document.getElementById('yourButton2').addEventListener('click', function() {
+                goToSurvey(getLanguageURL('chinese'));
+            });
+
+            document.getElementById('yourButton3').addEventListener('click', function() {
+                goToSurvey(getLanguageURL('english'));
+            });
+
+            function getLanguageURL(language) {
+                switch (language) {
+                    case 'korean':
+                        return 'https://docs.google.com/forms/d/e/1FAIpQLSfKg3ul0YZIbSPYxg17qeLRXorFrJcD2e7UUPt_7NVfnpCsiw/viewform';
+                    case 'chinese':
+                        return 'https://docs.google.com/forms/d/e/1FAIpQLSekTpgraxpdA9QoKGbUQGuI7OX996isv_Yt6Hb-FtsgWxadHw/viewform';
+                    default:
+                        return 'https://docs.google.com/forms/d/e/1FAIpQLScEssmKmXGdud9iLhsxEwLdOXpsALlOtnpSOwVeIvGEvM8kAA/viewform';
+                }
+            }
+
+            function goToSurvey(url) {
+                window.location.href = url;
+            }
+        }
+
+
+            function getResultTitle() {
+                switch (currentLanguage) {
+                    case 'korean':
+                        return '결과';
+                    case 'chinese':
+                        return '结果';
+                    default: // English
+                        return 'Results';
+                }
+            }
+
+            function getResultInstructions() {
+                switch (currentLanguage) {
+                    case 'korean':
+                        return '페이지를 닫기 전에 테스트 결과를 스크린샷으로 캡처하고 저장해주십시오 (일반적으로 PC 사용자는 Windows 키 + Shift + R을 누릅니다). 그런 다음, 구글 설문이 있을 예정입니다. 스크린샷을 구글 설문에 업로드해주세요. 모든 결과가 한 장의 사진에 완전히 나타나지 않는 경우 여러 번 나눠서 캡처하실 수 있습니다. 협력해 주셔서 감사합니다!';
+                    case 'chinese':
+                        return '在您关闭页面之前，请务必以屏幕截图的形式捕获并保存测试结果（PC 用户通常按下 Windows 键 + Shift + R）。接下来，我们将进行一项谷歌调查。请将屏幕截图上传至谷歌调查。如果所有结果无法完全显示在一张图片中，您可以多次分开截图。感谢您的理解与合作!';
+                    default: // English
+                        return 'Before closing this page, please make sure to capture and save the test results as a screenshot (PC users typically press Windows key + Shift + R). Next, we will conduct a Google survey. Please upload the screenshot to the Google survey. If all the results cannot be fully displayed in one picture, you can capture multiple screenshots separately. Thank you for your understanding and cooperation!';
+                }
+            }
+
+            // Shuffle function
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            // 在页面加载时洗牌 wordList 数组
+            window.onload = function () {
+                shuffleArray(wordList);
+                updateProgressBar();
+                updateContent();
+
+                // Load language based on the value stored in localStorage
+                const chosenLanguage = localStorage.getItem('chosenLanguage');
+                if (chosenLanguage) {
+                    setLanguage(chosenLanguage);
+                } else {
+                    // Default to English if no language is chosen
+                    setLanguage('english');
+                }
+            };
+
+        </script>
+
+        </div>
+    </div>
+
+</body>
+
+
+
+</html>
+

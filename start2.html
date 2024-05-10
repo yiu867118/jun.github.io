@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Recognition Test 1 - Start Page</title>
+    <style>
+
+        body {
+            font-family:   'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif,  serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        #start-page {
+            background-color: #fff;
+            background-size: 180px 180px;
+            background-image: url('jpg/1.jpg'); 
+            background-repeat: no-repeat;
+            background-position: right bottom;    
+            text-align: center;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        #textborder{
+            background-color: #f9f9f9; 
+            padding: 10px; 
+            border-radius: 5px; 
+            border: 1px solid #ddd; 
+            margin-left: 7%;
+            margin-right: 7%;
+            text-align: justify; 
+        }
+
+        #last{
+            text-align: center;
+        }
+
+        header {
+            background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));/* 使用 background 属性来应用渐变背景颜色 */
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid #f3f7fa;            
+        }
+
+        h1{
+            padding-bottom: 15px;
+        }
+
+
+
+        header p {
+            text-align: justify;
+            font-style: normal;
+            font-weight: 550;
+            font-size: 17.5px; /* Adjust the font size to your preference */
+            margin-left: 10%;
+            margin-right: 10%;
+            line-height: 1.4;
+        }
+
+        #chineseHeader{
+            font-family: SimSun, "STXihei", "Heiti SC", "Heiti TC", "Microsoft JhengHei", sans-serif;
+            font-weight: 600;
+        }
+
+        #chineseInstruction{
+            font-family: SimSun, "STXihei", "Heiti SC", "Heiti TC", "Microsoft JhengHei", sans-serif;
+            font-weight: 600;
+            font-size: 17.5px;
+        }
+
+        #chineseSample{
+            font-family: SimSun, "STXihei", "Heiti SC", "Heiti TC", "Microsoft JhengHei", sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+
+        }
+
+        #chineseStartTest{
+            font-family: SimSun, "STXihei", "Heiti SC", "Heiti TC", "Microsoft JhengHei", sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+
+        }
+
+        h1>span, #deep{
+            color: #f7f4f2;
+            text-shadow: 2px 2px 4px black;
+        }
+
+
+        #test-audio-player {
+            margin-top: 20px;
+        }
+
+        #progress-bar-start {
+            width: 100%;
+            background-color: #f1f1f1;
+            height: 20px;
+            position: relative;
+        }
+
+        #progress-start {
+            height: 100%;
+            background-color: #68a1dd;
+            width: 0;
+            position: absolute;
+        }
+
+        button {
+            background: linear-gradient(to right, #73c2f6, #5badd9);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px; /* Adjust margin for button alignment */
+            display: inline-block; /* Change display to inline-block */
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+
+        button:hover {
+            background: linear-gradient(to right, #40b9ec, #3bb1e4); /* Adjust gradient colors for hover effect */
+        }
+
+        .button-container {
+            display: flex; /* 使用 Flexbox 布局 */
+            justify-content: center; /* 在水平方向上居中对齐 */
+            margin-top: 20px;
+        }
+
+        #play{
+            background: linear-gradient(to right, #65bbe3, #348bca);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px; /* Adjust margin for button alignment */
+            display: inline-block; /* Change display to inline-block */
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+
+        }
+
+        #play:hover {
+            background: linear-gradient(to right, #3bb0f3, #62b4dd); /* Adjust gradient colors for hover effect */
+        }
+
+
+
+        #test-question-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #test-question-container button {
+            margin: 0 10px; /* Add margin between buttons */
+        }
+        
+    </style>
+</head>
+
+<body>
+    
+    <div id="container">
+
+        <header>
+            <h1>
+                <span id="englishHeader" style="display: none;">Word Recognition Test 2</span>
+                <span id="koreanHeader" style="display: none;">단어 인식 테스트 2</span>
+                <span id="chineseHeader" style="display: none;">词汇识别测试 2</span>
+            </h1>
+            <p id="testInstruction">
+                <span id="englishInstruction" style="display: none;">Test 2 consists of a total of 146 words and is expected to take about 20 minutes. In Test 2, as in Test 1, you will hear some words and judge whether the word you hear is a real English word or not.<br><br>
+                                                                     Please listen carefully, as the play button can only be activated <strong id="deep">once</strong>, allowing you to hear each word only once.
+                                                                     Your response time for each judgment will also be recorded. Please press the ‘yes’ or ‘no’ button while making the decision. First, you can try the sample question.</span>
+                <span id="koreanInstruction" style="display: none;">테스트 2는 총 146개의 단어로 이루어져 있고 총 20분 정도 소요될 예정입니다. 테스트 2에서도 테스트 1과 마찬가지로 단어를 듣고 들은 단어가 실제 영어 단어인지 아닌지 판단하게 됩니다. <br><br>먼저, 연습 문제를 하나 들어보도록 하겠습니다.준비가 되면 아래 화살표를 클릭하세요. <strong id="deep">한번 밖에 들을 수 없으니</strong> 주의해서 들으시고, 판단하는대로 Yes 또는 No 버튼을 눌러주세요.</span>
+                <span id="chineseInstruction" style="display: none;">测试2总共由146个单词组成，预计大约需要花费20分钟。在测试2中，您将像测试1一样，听到一些单词, 请判断您听到的单词是否是英语中真实存在的单词。<br><br> 请注意聆听，因为每个单词的播放按钮只能点击一次, 您将只有<strong id="deep">一次</strong>机会听清每个单词。同时，我们会记录您对每个单词做出判断的反应时间。<strong id="deep">当您做出判断时，请立即点击“Yes”或“No”按钮, </strong>以确保您的反应时间被准确记录。请注意，在整个测试过程中，如果您中途暂停, 即使完成了整个测试也将无法获得经济补偿。感谢您的理解!</strong>
+                                                                     接下来, 您可以先尝试下方的示例。</span>
+            </p>
+            <br>
+        </header>
+        <br>
+        <br>
+        
+        <div id="start-page">
+            <div id="test-audio-player">
+                <audio id="audio">
+                    <source src="wav/cup.wav" type="audio/mpeg">
+                </audio>
+                <div id="msg"></div>
+                <strong>
+                    <span id="englishwordnumber" style="display: none;">Sample: &nbsp&nbsp&nbsp&nbsp Word 1</span>
+                    <span id="koreanwordnumber" style="display: none;">예시: &nbsp&nbsp&nbsp&nbsp Word 1</span>
+                    <span id="chinesewordnumber" style="display: none;"> 示例:  &nbsp&nbsp&nbsp&nbsp Word 1</span>
+                </strong>
+                <button id="play">▶︎</button>
+            </div>
+            
+
+            <br>
+            <p><strong>
+                <span id="englishSample" style="display: none;">Sample: Do you think this is a real English word?</span>
+                <span id="koreanSample" style="display: none;">예시: 이 단어가 영어에 실제로 존재하는 단어인 것으로 생각하십니까?</span>
+                <span id="chineseSample" style="display: none;"> 你认为这个单词是英语中真实存在的单词吗?</span>
+            </strong></p>
+
+        
+            <div id="test-question-container">
+                <button onclick="recordAnswer('Yes')">Yes</button>
+                <button onclick="recordAnswer('No')">No</button>
+            </div>
+            <br>
+            <br>
+        </div>    
+        
+        <br><br>
+        <div id="textborder">
+            <h3 style="color: #333;">🔔 🔔</h3>
+            <p id="testNote" style="color: #0d0d0d; font-size: 0.9em; line-height: 1.5;">
+                <strong>Please be aware that once the test begins, it cannot be stopped midway. We will record the participants’ reaction time to each word. If you stop in the middle, participants will not be able to receive the corresponding reward. Please prepare your headphones or answer in a quiet environment before starting the test. Thank you for your understanding and cooperation!</strong>   
+            </p>
+        </div>
+        
+        <br>
+        <br>
+        <div id="last">
+            <p style="color: #0e0d0d; font-size: 0.9em;">
+                <strong>
+                    <span id="englishStartTest" style="display: none;">Click the button below when you are ready to begin the test.</span>
+                    <span id="koreanStartTest" style="display: none;">테스트를 시작할 준비가 되면 아래 버튼을 클릭하세요.</span>
+                    <span id="chineseStartTest" style="display: none;">当您准备好开始测试时，请点击下面的按钮。</span>
+                </strong>
+            </p>
+
+            <button onclick="startTest()">
+                <span id="englishStartButton" style="display: none;">Start Test 2</span>
+                <span id="koreanStartButton" style="display: none;">테스트 2 시작</span>
+                <span id="chineseStartButton" style="display: none;">进入 Test 2</span>
+            </button>
+        </div>
+        <br>
+        <br>
+            
+        
+    </div>
+
+    <script>
+    
+        function startTest() {
+            // Redirect to the test page
+            window.location.href = 'test2.html';
+        }
+    
+        // Function to set language based on user selection
+        function setLanguage(language) {
+            document.getElementById('englishHeader').style.display = (language === 'english') ? 'inline' : 'none';
+            document.getElementById('koreanHeader').style.display = (language === 'korean') ? 'inline' : 'none';
+            document.getElementById('chineseHeader').style.display = (language === 'chinese') ? 'inline' : 'none';
+    
+            document.getElementById('englishInstruction').style.display = (language === 'english') ? 'inline' : 'none';
+            document.getElementById('koreanInstruction').style.display = (language === 'korean') ? 'inline' : 'none';
+            document.getElementById('chineseInstruction').style.display = (language === 'chinese') ? 'inline' : 'none';
+
+            document.getElementById('englishwordnumber').style.display = (language === 'english') ? 'inline' : 'none';
+            document.getElementById('koreanwordnumber').style.display = (language === 'korean') ? 'inline' : 'none';
+            document.getElementById('chinesewordnumber').style.display = (language === 'chinese') ? 'inline' : 'none';
+
+            document.getElementById('englishSample').style.display = (language === 'english') ? 'inline' : 'none';
+            document.getElementById('koreanSample').style.display = (language === 'korean') ? 'inline' : 'none';
+            document.getElementById('chineseSample').style.display = (language === 'chinese') ? 'inline' : 'none';
+    
+            // Update language for 🔔 🔔 part
+            var testNote = document.getElementById('testNote');
+            if (language === 'english') {
+                testNote.innerHTML = "<strong>Even though you can take a break or interrupt at any time during the test, participants who interrupt midway won't receive compensation. Thank you for your understanding and cooperation!</strong>";
+            } else if (language === 'korean') {
+                testNote.innerHTML = "<strong>준비가 되었으면 테스트 2 를 시작하도록 하겠습니다. 테스트 중간에 언제든지 자발적으로 휴식을 취하거나 중지할 수 있습니다. <br> 하지만 모바일 상품권은 테스트를 끝까지 마친 분들께만 제공됩니다. 이해와 협조에 감사드립니다! </strong>";
+            } else if (language === 'chinese') {
+                testNote.innerHTML = "<strong style=\"font-family: SimSun, 'STXihei', 'Heiti SC', 'Heiti TC', 'Microsoft JhengHei', sans-serif; font-weight: 600; font-size: 16px;\">如果您准备好了，请开始测试2。请您务必认真作答。如果您的回答被认定为对实验无效，您将无法得到经济补偿。感谢您的理解与合作！</strong>";
+            }
+        }
+
+        // Function to set language for start test message and button
+        function setStartTestLanguage(language) {
+            document.getElementById('englishStartTest').style.display = (language === 'english') ? 'inline' : 'none';
+            document.getElementById('koreanStartTest').style.display = (language === 'korean') ? 'inline' : 'none';
+            document.getElementById('chineseStartTest').style.display = (language === 'chinese') ? 'inline' : 'none';
+
+            document.getElementById('englishStartButton').style.display = (language === 'english') ? 'inline' : 'none';
+            document.getElementById('koreanStartButton').style.display = (language === 'korean') ? 'inline' : 'none';
+            document.getElementById('chineseStartButton').style.display = (language === 'chinese') ? 'inline' : 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var playButton = document.getElementById('play'); // 获取播放按钮
+            var audio = document.getElementById('audio'); // 获取audio元素
+
+            // 为播放按钮添加点击事件监听器
+            playButton.addEventListener('click', function() {
+                audio.play(); // 播放音频
+            });
+        });
+
+    
+        // Set language on page load based on previously chosen language
+        window.onload = function() {
+            var chosenLanguage = localStorage.getItem('chosenLanguage');
+            if (chosenLanguage) {
+                setLanguage(chosenLanguage);
+                setStartTestLanguage(chosenLanguage);
+            } else {
+                // Default to English if no language is chosen
+                setLanguage('english');
+                setStartTestLanguage('english');
+            }
+        };
+    </script>
+    
+</body>
+
+
+</html>
+
+
