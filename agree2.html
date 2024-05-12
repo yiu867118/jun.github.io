@@ -26,7 +26,7 @@
             padding: 1px;
         }
 
-        .title {
+        #title {
             background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));
             color: #fff;
             padding: 40px 0;
@@ -155,7 +155,7 @@
 
 <div>
     <div class="container">
-        <div class="title">Participant Consent Form</div>
+        <div id="title">Participant Consent Form</div>
 
         <br>
         <div class="image-container" id="imageContainer"></div>
@@ -195,7 +195,7 @@
             </div>
 
             <div id="chineseText" style="display:none;">
-                <p>负责研究者: 卢一慧</p>
+                <p>负责研究者: 卢一慧 (루이후이)</p>
                 <p>邮箱: iestrella@cau.ac.kr</p>
                 <p>共同研究者: 송재영</p>
                 <p>邮箱: songjy@cau.ac.kr</p>
@@ -213,7 +213,9 @@
                 chosenLanguage = 'english'; // 默认为英语
             }
             showImageAndButton(chosenLanguage);
+            showTitle(chosenLanguage); // Call the showTitle function here
         }
+
 
         function showImageAndButton(language) {
             var img = document.createElement("img");
@@ -258,6 +260,17 @@
             var alertMessage = document.getElementById("alertMessage");
             alertMessage.style.display = "block";
         }
+
+        function showTitle(language) {
+        var title = document.getElementById("title");
+        if (language === 'english') {
+            title.innerHTML = "Informed Consent for Research Participation";
+        } else if (language === 'korean') {
+            title.innerHTML = "연구 참여 동의서";
+        } else if (language === 'chinese') {
+            title.innerHTML = "实验参与知情同意书";
+        }
+    }
     </script>
 
 </body>
