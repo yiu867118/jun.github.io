@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Participant Information Sheet</title>
+    <title>Informed Consent for Research Participation</title>
     <style>
         body {
             font-family:   'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif,  serif;
@@ -30,7 +30,7 @@
             color: #fff;
             padding: 40px 0;
             text-align: center;
-            font-size: 36px;
+            font-size: 32px;
             font-weight: bold;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
@@ -110,7 +110,7 @@
 
 <body>
     <div class="container">
-        <div class="title">Participant Information Sheet</div>
+        <div class="title">Informed Consent for Research Participation</div>
         
         
         <div class="language-selector">
@@ -136,13 +136,29 @@
     </div>
 
     <script>
+        
+
         var chosenLanguage;
 
         function chooseLanguage(language) {
             chosenLanguage = language;
             localStorage.setItem('chosenLanguage', language);
+            changeTitle(language);
             showImage(language);
         }
+
+        function changeTitle(language) {
+            var title = document.querySelector(".title");
+            if (language === "english") {
+                title.innerText = "Informed Consent for Research Participation";
+            } else if (language === "korean") {
+                title.innerText = "연구 참여 동의서";
+            } else if (language === "chinese") {
+                title.innerText = "参与者知情同意书";
+            }
+        }
+
+        
 
         function showImage(language) {
             var img = document.createElement("img");
