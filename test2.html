@@ -225,7 +225,13 @@
             yesButton.disabled = false; // 启用 Yes 按钮
             noButton.disabled = false; // 启用 No 按钮
             audioStartTime = new Date().getTime(); // 音频结束时开始记录时间
+
+            // 停止音频播放并清除音频源
+            audioPlayer.pause();
+            audioPlayer.src = '';
+            audioPlayer.load();
         };
+
 
 
         let wordList = Array.from({ length: 146 }, (_, i) => `Tword_${String(i + 1).padStart(3, '0')}`);
