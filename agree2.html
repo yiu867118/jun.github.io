@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participant Consent Form</title>
+    <style>
+                
+        body {
+            font-family:   'STXihei', 'Heiti SC', 'Heiti TC', 'Microsoft JhengHei', sans-serif;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f6fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 1px;
+        }
+
+        #title {
+            background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        button {
+            background-color: #3f99e2;
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px auto; /* Center */
+            display: block; /* Centering effect */
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+       
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Style for the buttons */
+        .button-container button {
+            background: linear-gradient(to right, #73c2f6, #4ab3ec);
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px; /* Adjust margin between buttons */
+            display: inline-block; /* Display buttons inline */
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        /* Hover effect for buttons */
+        .button-container button:hover {
+            background: linear-gradient(to right, #40b9ec, #71d2fb); /* Adjust gradient colors for hover effect */
+        }
+
+
+        .image-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #d6eaf7;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .image-container:hover {
+            transform: scale(1.05); /* 将图片稍微放大 */
+            transition: transform 0.3s ease; /* 添加平滑过渡效果 */
+            cursor: pointer; /* 鼠标样式变为手型 */
+        }
+
+        #dateDisplay {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px #ccc;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        #alertMessage {
+            display: none;
+            background-color: #f8d7da;
+            color: #721c24;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            color: #fff;
+            font-size: 1em;
+            line-height: 1.5;
+            margin: 0 0 1em 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        footer {
+            background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));
+            color: #fff;
+            padding: 20px 0;
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        #englishText, #koreanText, #chineseText {
+            font-size: medium;
+            text-align: left;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgb(47, 47, 47);
+            line-height: 1.5;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div>
+    <div class="container">
+        <div id="title">Participant Consent Form</div>
+
+        <br>
+        <div class="image-container" id="imageContainer"></div>
+
+        <br>
+        <div id="dateDisplay"></div>
+        <br>
+
+        <div class="button-container">
+            <br>
+            <button id="disagreeButton" onclick="showAlert()">I disagree</button>
+            <button id="agreeButton" onclick="window.location.href='start1.html'">I agree</button>
+            <br>
+        </div>
+
+        <br><br><br><br>
+        <footer id="footer">
+            <br>
+            <div id="alertMessage"></div>
+
+            <div id="englishText">
+                <p>Researcher in Charge: Yihui Lu</p>
+                <p>E-mail: iestrella@cau.ac.kr</p>
+                <p>Co-researcher: Jae-young Song</p>
+                <p>E-mail: songjy@cau.ac.kr</p>
+                <p>Chung-Ang University Bioethics Committee</p>
+                <p>TEL: 02-820-6346, E-mail: ethics@cau.ac.kr</p>
+            </div>
+
+            <div id="koreanText" style="display:none;">
+                <p>책임연구자: 루이후이</p>
+                <p>E-mail: iestrella@cau.ac.kr</p>
+                <p>공동연구자: 송재영</p>
+                <p>E-mail: songjy@cau.ac.kr</p>
+                <p>중앙대학교 생명윤리 위원회</p>
+                <p>TEL: 02-820-6346, E-mail: ethics@cau.ac.kr</p>
+            </div>
+
+            <div id="chineseText" style="display:none;">
+                <p>负责研究者: 卢一慧 (루이후이)</p>
+                <p>邮箱: iestrella@cau.ac.kr</p>
+                <p>共同研究者: 송재영</p>
+                <p>邮箱: songjy@cau.ac.kr</p>
+                <p>中央大学生命伦理委员会</p>
+                <p>TEL: 02-820-6346, E-mail: ethics@cau.ac.kr</p>
+            </div>
+        </footer>
+    </div>
+</div>
+
+    <script>
+        window.onload = function () {
+            var chosenLanguage = localStorage.getItem('chosenLanguage');
+            if (!chosenLanguage) {
+                chosenLanguage = 'english'; // 默认为英语
+            }
+            showImageAndButton(chosenLanguage);
+            showTitle(chosenLanguage); // Call the showTitle function here
+        }
+
+
+        function showImageAndButton(language) {
+            var img = document.createElement("img");
+            img.src = "jpg/" + language + "3.jpg";
+            var container = document.getElementById("imageContainer");
+            container.innerHTML = "";
+            container.appendChild(img);
+
+            var textContainer = document.getElementById(language + "Text");
+            textContainer.style.display = "block";
+
+            var otherTextContainers = document.querySelectorAll('[id$="Text"]:not(#' + language + 'Text)');
+            otherTextContainers.forEach(function (container) {
+                container.style.display = "none";
+            });
+
+            var agreeButton = document.getElementById("agreeButton");
+            var disagreeButton = document.getElementById("disagreeButton");
+            var alertMessage = document.getElementById("alertMessage");
+            if (language === 'english') {
+                agreeButton.innerHTML = "I agree";
+                disagreeButton.innerHTML = "I disagree";
+                alertMessage.innerHTML = "You need to agree to enter the test.";
+            } else if (language === 'korean') {
+                agreeButton.innerHTML = "동의합니다";
+                disagreeButton.innerHTML = "동의하지 않습니다";
+                alertMessage.innerHTML = "테스트에 참여하려면 동의가 필요합니다.";
+            } else if (language === 'chinese') {
+                agreeButton.innerHTML = "我同意";
+                disagreeButton.innerHTML = "我不同意";
+                alertMessage.innerHTML = "需要您同意才能进入测试。";
+            }
+
+            alertMessage.style.display = "none";
+
+            var dateDisplay = document.getElementById("dateDisplay");
+            var currentDate = new Date().toLocaleDateString();
+            dateDisplay.innerHTML = "Date: " + currentDate;
+        }
+
+        function showAlert() {
+            var alertMessage = document.getElementById("alertMessage");
+            alertMessage.style.display = "block";
+        }
+
+        function showTitle(language) {
+        var title = document.getElementById("title");
+        if (language === 'english') {
+            title.innerHTML = "Informed Consent for Research Participation";
+        } else if (language === 'korean') {
+            title.innerHTML = "연구 참여 동의서";
+        } else if (language === 'chinese') {
+            title.innerHTML = "实验参与知情同意书";
+        }
+    }
+    </script>
+
+</body>
+
+</html>

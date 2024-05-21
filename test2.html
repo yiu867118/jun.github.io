@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Recognition Test 1</title>
+    <style>
+        body {
+            font-family:   'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif,  serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        #test-container {
+            background-color: #fff;
+            background-size: 180px 180px;
+            background-image: url('jpg/1.jpg'); 
+            background-repeat: no-repeat;
+            background-position: right bottom;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            margin-left: 10%;
+            margin-right: 10%;
+            background-color:#fff;;
+            border-radius: 15px;
+            box-shadow: 0 0 5px rgba(82, 81, 81, 0.1),
+                        0 0 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 2px;
+        }
+
+        header {
+            background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));/* 使用 background 属性来应用渐变背景颜色 */
+            padding: 10px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid #f3f7fa;
+        }
+
+        #quiz-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #audio-player {
+            margin-top: 20px;
+        }
+
+        #question-container {
+            margin-top: 20px;
+        }
+
+        #progress-bar {
+            width: 100%;
+            background-color: #f1f1f1;
+            height: 20px;
+            position: relative;
+        }
+
+        #progress {
+            height: 100%;
+            background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));
+            width: 0;
+            position: absolute;
+        }
+
+        button {
+            background: linear-gradient(to right, #73c2f6, #5badd9);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px; /* Adjust margin for button alignment */
+            display: inline-block; /* Change display to inline-block */
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        
+        button:hover {
+            background: linear-gradient(to right, #40b9ec, #3bb1e4); /* Adjust gradient colors for hover effect */
+        }
+
+        .button-container {
+            display: flex; /* 使用 Flexbox 布局 */
+            justify-content: center; /* 在水平方向上居中对齐 */
+            margin-top: 20px;
+        }
+
+        #play{
+            background: linear-gradient(to right, #65bbe3, #348bca);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px; /* Adjust margin for button alignment */
+            display: inline-block; /* Change display to inline-block */
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+
+        }
+
+        #play:hover {
+            background: linear-gradient(to right, #3bb0f3, #62b4dd); /* Adjust gradient colors for hover effect */
+        }
+
+        #resultsBox {
+            border: 2px solid black;
+            padding: 10px;
+            margin: 10px;
+            overflow-x: auto;
+            text-align: center;
+        }
+
+        h2, p {
+            text-align: center;
+        }
+
+        #pagetitle{
+            color: #ffffff;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .table-container {
+            column-gap: 20px;
+            overflow-x: auto;
+            width: 100%; /* Ensure the table container takes full width */
+        }
+
+        table {
+            text-align: center;
+            border-collapse: collapse;
+            font-size: 12px;
+            width: 100%; /* Ensure the table takes full width */
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <header>
+            <br>
+            <h1 id="pagetitle">Word Recognition Test 2</h1>
+            <br>
+        </header>
+
+        <div id="quiz-container">
+            <div id="progress-bar">
+                <div id="progress"></div>
+            </div>
+        
+            <div id="test-container">
+                <br>
+                <br>
+                <div id="audio-player">
+                    <audio id="audio">
+                        <source src="" type="audio/mpeg">
+                    </audio>
+                    <div id="msg"></div>
+                    <span id="questionNumber"><strong>Word 1</strong></span>
+                    <button id="play">▶︎</button>
+                </div>
+
+                <br>
+                <br>
+                <div id="question-container">
+                    <p><strong id="questionText">Do you think this is a real English word?</strong></p>
+                    <button id="yesButton" onclick="recordAnswer('Yes')" disabled>Yes</button>
+                    <button id="noButton" onclick="recordAnswer('No')" disabled>No</button>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let questionNumberDisplay = document.getElementById('questionNumber');
+        let yesButton = document.getElementById('yesButton');
+        let noButton = document.getElementById('noButton');
+        let playButton = document.getElementById('play');
+        let audioPlayer = document.getElementById('audio');
+        let audioStartTime = 0;
+        let answerDurations = []; // 存储用户答题反应时间的数组
+        let currentQuestionIndex = 0; // 当前问题的索引
+
+        playButton.addEventListener('click', control);
+
+        function control() {
+            if (!audioPlayer.paused) return; // 如果音频正在播放，则不执行任何操作
+            audioPlayer.play();
+            playButton.disabled = true; // 点击后禁用播放按钮
+            audioStartTime = new Date().getTime(); // 记录音频开始时间
+        }
+
+        audioPlayer.onended = function() {
+            yesButton.disabled = false; // 启用 Yes 按钮
+            noButton.disabled = false; // 启用 No 按钮
+            audioStartTime = new Date().getTime(); // 音频结束时开始记录时间
+
+            // 停止音频播放并清除音频源
+            audioPlayer.pause();
+            audioPlayer.src = '';
+            audioPlayer.load();
+        };
+
+
+
+        let wordList = Array.from({ length: 1 }, (_, i) => `Tword_${String(i + 1).padStart(3, '0')}`);
+        shuffleArray(wordList); // 洗牌单词列表
+
+        // 洗牌数组的函数
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function updateProgressBar() {
+            const progress = (currentQuestionIndex + 1) / wordList.length * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+
+        
+        function playNextWord() {
+            if (currentQuestionIndex < wordList.length) {
+                const word = wordList[currentQuestionIndex];
+                audioPlayer.src = `test2word/${word}.wav`;
+                audioPlayer.load(); // 确保重新加载音频文件
+                audioPlayer.oncanplaythrough = function() {
+                    playButton.disabled = false; // 当音频加载完毕后，启用播放按钮
+                    audioPlayer.oncanplaythrough = null; // 移除事件监听器，避免重复触发
+                };
+                updateProgressBar();
+            }
+        }
+
+        // 添加预加载步骤
+        audioPlayer.preload = 'auto';
+        audioPlayer.oncanplaythrough = function() {
+            playButton.disabled = false; // 当音频加载完毕后，启用播放按钮
+        };
+
+
+        function recordAnswer(answer) {
+            const answerEndTime = new Date().getTime();
+            const answerDuration = (answerEndTime - audioStartTime) / 1000; // 计算反应时间
+            answerDurations.push({ answer, duration: answerDuration });
+            // 停止音频播放
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+
+            // 禁用按钮
+            yesButton.disabled = true;
+            noButton.disabled = true;
+            playButton.disabled = false;
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex === wordList.length) {
+                showResults();
+            } else {
+                playNextWord();
+                questionNumberDisplay.innerHTML = `<strong>Word ${currentQuestionIndex + 1}</strong>`;
+            }
+        }
+
+        function showResults() {
+            let resultHTML = `
+            <div id="resultsBox" style="border:2px solid black; padding: 10px; margin: 10px; overflow-x: auto;">
+                <h2 style='text-align:center;'>`;
+            // Add language-specific title for result page
+            const chosenLanguage = localStorage.getItem('chosenLanguage');
+            if (chosenLanguage === 'korean') {
+                resultHTML += `테스트2 결과</h2>
+                
+                    <p style='text-align:left; line-height: 1.8;'>
+                        이제 테스트 2이 끝났습니다.<br>
+                        <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>**중요 알림**</span> 이 페이지를 닫기 전에 테스트 결과를 스크린샷으로 캡처하고 저장해주세요 (PC의 경우 보통 windows key + shift + R). 다음 단어 친숙도 설문지를 마친 후에, 구글 설문이 있을 예정인데, 제일 마지막 단계인 <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>구글 설문</span>에 스크린샷을 업로드해야 합니다. 모든 결과가 한 장의 사진에 완전히 표시되지 않는 경우 여러 장의 사진을 따로 캡처할 수 있습니다. 협조해 주셔서 감사합니다.
+                    </p>`;
+            } else if (chosenLanguage === 'chinese') {
+                resultHTML += `测试2 结果</h2>
+                    <p style='text-align:left; line-height: 1.8;'>
+                        您已经完成了测试2!<br>
+                        <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>**重要提示**</span> 请您在关闭此页面之前，将测试结果截图并保存（PC 用户通常按下 Windows 键 + Shift + R）。接下来将进行单词熟悉度调查和谷歌问卷。您需要在最后一个步骤的 <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'> 谷歌问卷 </span>上传您的测试结果屏幕截图。如果所有结果无法在一张图片中完全展示，您可以单独截取多张图片。感谢您的理解!
+                    </p>`;
+            } else {
+                resultHTML += `Test2 Results</h2>
+                    <p style='text-align:left; line-height: 1.5;'>
+                        Now you’re done with Test 2.<br>
+                        <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>** Important **</span> Before starting the word familiarity survey on the next page, please take a screenshot of your test results below and save it to your computer (Usually, PC users can use the Windows key + Shift + R can to take a screenshot). In the final step of this experiment, <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>Google survey</span>, you will be asked to upload the screenshot. You may take more than one screenshots if the results don’t fit into one. Thank you for your cooperation!
+                    </p>`;
+            }
+
+            let tableHTML = '';
+            const wordLimit = 30; // 每个表格的单词限制
+            const numTables = Math.ceil(wordList.length / wordLimit); // 总共需要的表格数
+
+            for (let j = 0; j < numTables; j++) {
+                tableHTML += `<div style='overflow-x: auto; display: inline-block; vertical-align: top;'>`;
+                tableHTML += `<table style='width:100%; text-align:center; border: 2px solid black; font-size: 10px;'>`;
+                tableHTML += `<tr style='background-color: #f2f2f2;'><th>Question</th><th>Word</th><th>Answer</th><th>Reaction Time (seconds)</th></tr>`;
+
+                const startIndex = j * wordLimit;
+                const endIndex = Math.min((j + 1) * wordLimit, wordList.length);
+
+                for (let i = startIndex; i < endIndex; i++) {
+                    tableHTML += `<tr><td>${i + 1}</td><td>${wordList[i]}</td><td>${answerDurations[i].answer}</td><td>${answerDurations[i].duration}</td></tr>`;
+                }
+
+                tableHTML += `</table></div>`;
+            }
+
+            resultHTML += tableHTML;
+            resultHTML += "</div>"; // 关闭结果框div
+
+
+
+            // Add the button outside of the results box div
+            resultHTML += `
+            <div style='text-align:center; margin-top:20px;'>
+                <button id="yourButton" onclick="location.href='fam.html'">`;
+            // Add "进入test2" button based on language choice
+            if (chosenLanguage === 'korean') {
+                resultHTML += `단어 친숙도 설문지 들어가기`;
+            } else if (chosenLanguage === 'chinese') {
+                resultHTML += `进入单词熟悉度调查问卷`;
+            } else {
+                resultHTML += `Go to word familiarity questionnaire`;
+            }
+            resultHTML += `</button>
+            </div><br>`;
+
+            document.getElementById('quiz-container').innerHTML = resultHTML;
+        }
+
+        window.onload = function () {
+            shuffleArray(wordList); // 洗牌单词列表
+            playNextWord();
+
+            const chosenLanguage = localStorage.getItem('chosenLanguage');
+            if (chosenLanguage === 'korean') {
+                document.getElementById('pagetitle').innerText = '단어 인식 테스트 2';
+                document.getElementById('questionText').innerText = " 이 단어가 영어에 실제로 존재하는 단어인 것으로 생각하십니까?";
+            } else if (chosenLanguage === 'chinese') {
+                document.getElementById('pagetitle').innerText = '词汇识别测试 2';
+                document.getElementById('questionText').innerText = "你认为这个单词是英语中真实存在的单词吗?";
+            }
+        };
+    </script>
+</body>
+</html>
+
+

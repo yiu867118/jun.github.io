@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informed Consent for Research Participation</title>
+    <style>
+        body {
+            font-family:   'STXihei', 'Heiti SC', 'Heiti TC', 'Microsoft JhengHei', sans-serif;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f6fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 1px;
+        }
+
+        .title {
+            background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px black;
+        }
+
+        .language-selector {
+            text-align: center;
+            margin-bottom: 20px;
+            
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .language-selector label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #3c4043;
+        }
+
+        .language-selector select {
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            border: 1px solid #dfe1e5;
+            margin-left: 10px;
+        }
+
+        
+
+        .image-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            border: 2px solid #d7e8f3;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .image-container:hover {
+            transform: scale(1.02); /* 将图片稍微放大 */
+            transition: transform 0.3s ease; /* 添加平滑过渡效果 */
+            cursor: pointer; /* 鼠标样式变为手型 */
+        }
+
+        button {
+            background: linear-gradient(to right, #73c2f6, #5badd9);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px auto; /* Center */
+            display: block; /* Centering effect */
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #40b9ec, #71d2fb); /* Adjust gradient colors for hover effect */
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">Informed Consent for Research Participation</div>
+        
+        
+        <div class="language-selector">
+            <label for="languageSelect">Select Language:</label>
+            <select id="languageSelect" onchange="chooseLanguage(this.value)">
+                <option value="english">English</option>
+                <option value="korean">한국어</option>
+                <option value="chinese">中文</option>
+            </select>
+        </div>
+        
+
+        <div class="intro"></div>
+
+        <div class="image-container" id="imageContainer"></div>
+        
+        <br>
+        <div class="button-container">
+            <button id="nextPageButton" onclick="window.location.href='agree2.html'">Next</button>
+        </div>
+        <br><br>
+
+    </div>
+
+    <script>
+        
+
+        var chosenLanguage;
+
+        function chooseLanguage(language) {
+            chosenLanguage = language;
+            localStorage.setItem('chosenLanguage', language);
+            changeTitle(language);
+            showImage(language);
+        }
+
+        function changeTitle(language) {
+            var title = document.querySelector(".title");
+            if (language === "english") {
+                title.innerText = "Informed Consent for Research Participation";
+            } else if (language === "korean") {
+                title.innerText = "연구 참여 동의서";
+            } else if (language === "chinese") {
+                title.innerText = "实验参与知情同意书";
+            }
+        }
+
+        
+
+        function showImage(language) {
+            var img = document.createElement("img");
+            img.src = "jpg/" + language + "1.jpg";
+            var container = document.getElementById("imageContainer");
+            container.innerHTML = "";
+            container.appendChild(img);
+        }
+
+        window.onload = function() {
+            chooseLanguage('english');
+        }
+    </script>
+
+</body>
+
+</html>
+
+
