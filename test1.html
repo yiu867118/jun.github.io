@@ -24,7 +24,7 @@
         #test-container {
             background-color: #fff;
             background-size: 180px 180px;
-            background-image: url('jpg/2.jpg'); 
+            
             background-repeat: no-repeat;
             background-position: right bottom;
             margin-top: 10%;
@@ -229,7 +229,7 @@
         };
 
 
-        let wordList = Array.from({ length: 1 }, (_, i) => `word_${String(i + 1).padStart(3, '0')}`);
+        let wordList = Array.from({ length: 146 }, (_, i) => `word_${String(i + 1).padStart(3, '0')}`);
         shuffleArray(wordList); // 洗牌单词列表
 
         // 洗牌数组的函数
