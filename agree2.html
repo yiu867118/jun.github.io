@@ -255,8 +255,10 @@
             alertMessage.style.display = "none";
 
             var dateDisplay = document.getElementById("dateDisplay");
-            var currentDate = new Date().toLocaleDateString();
-            dateDisplay.innerHTML = "Date: " + currentDate;
+            var currentDate = new Date();
+            var formattedDate = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' });
+            dateDisplay.innerHTML = "Date: " + formattedDate;
+
         }
 
         function showAlert() {
