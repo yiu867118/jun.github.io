@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 1 Results</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 5px;
+        }
+
+        header {
+            background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            border-bottom: 5px solid #f3f7fa;
+        }
+
+        #pagetitle{
+            color: #ffffff;
+            text-shadow: 2px 2px 4px black;
+        }
+
+
+        h2 {
+            text-align: center;
+        }
+
+        p{
+            text-align:justify;
+            line-height: 1.8;
+            margin-left: 5%;
+            margin-right: 5%;
+            font-size: 18px;
+
+        }
+
+        #resultsBox {
+           
+            background-color: #fff;
+            background-size: 180px 180px;
+           
+            background-repeat: no-repeat;
+            background-position: right bottom;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            margin-left: 10%;
+            margin-right: 10%;
+            border-radius: 15px;
+            box-shadow: 0 0 5px rgba(82, 81, 81, 0.1),
+                        0 0 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 2px;
+        }
+
+        #downloadButton {
+            display: block;
+            margin: 0 auto;
+            display: block;
+            margin: 0 auto;
+            width: auto; /* 设置按钮的宽度为自适应 */
+            padding: 0 20px; /* 添加内边距，使按钮更宽 */
+            height: 50px; /* 按钮的高度 */
+            line-height: 50px; /* 设置行高与按钮高度相同，使文本垂直居中 */
+            text-align: center; /* 文本水平居中 */
+            border-radius: 30px; /* 将边框半径设置为按钮高度的一半，使按钮成为椭圆形 */
+            background-color: #007bff; /* 设置按钮的背景颜色 */
+            color: #ffffff; /* 设置按钮文本的颜色 */
+            font-size: 16px; /* 设置按钮文本的字体大小 */
+            border: none; /* 移除按钮的边框 */
+            cursor: pointer; /* 将鼠标光标设置为手型 */
+            outline: none; /* 移除按钮的外观轮廓 */
+            transition: background-color 0.3s ease; /* 添加背景颜色变化的过渡效果 */
+            
+        }
+
+        #yourButton{
+            display: block;
+            margin: 0 auto;
+            width: auto; /* 设置按钮的宽度为自适应 */
+            padding: 0 20px; /* 添加内边距，使按钮更宽 */
+            height: 40px; /* 按钮的高度 */
+            line-height: 40px; /* 设置行高与按钮高度相同，使文本垂直居中 */
+            text-align: center; /* 文本水平居中 */
+            border-radius: 30px; /* 将边框半径设置为按钮高度的一半，使按钮成为椭圆形 */
+            background-color: #007bff; /* 设置按钮的背景颜色 */
+            color: #ffffff; /* 设置按钮文本的颜色 */
+            font-size: 16px; /* 设置按钮文本的字体大小 */
+            border: none; /* 移除按钮的边框 */
+            cursor: pointer; /* 将鼠标光标设置为手型 */
+            outline: none; /* 移除按钮的外观轮廓 */
+            transition: background-color 0.3s ease; /* 添加背景颜色变化的过渡效果 */
+        }
+
+
+        .table-container {
+            column-gap: 20px;
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            text-align: center;
+            border-collapse: collapse;
+            font-size: 12px;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        button {
+            background: linear-gradient(to right, #73c2f6, #5badd9);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            display: inline-block;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #40b9ec, #3bb1e4);
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            
+            <h1 id="pagetitle"></h1>
+            
+        </header>
+        <div id="quiz-container">
+        
+            <div id="resultsBox">
+                <br>
+                <h2 id="resultsTitle"></h2>
+                <p id="resultsDescription"></p>
+                <br>
+                <button id="downloadButton">Download Results</button>
+                <br>
+               
+                
+            </div>
+            <div style='text-align:center; margin-top:20px;'>
+                <button id="yourButton"></button>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chosenLanguage = localStorage.getItem('chosenLanguage');
+            let pageTitle = 'Test2 Results';
+            let resultsTitle = ' Now you’re done with Test 2.';
+            let resultsDescription = `
+                <br>
+                <span style='color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>** Important **</span> Before starting word familiarity questionnaire on the next page, please download the results. In the final step of this experiment, <span style='color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>the Google survey</span>, you will be asked to upload the result sheet. 
+            `;
+            let buttonText = 'Go to familiarity questionnaire';
+            let downloadMessage = 'You must download the results before proceeding to the next questionnaire.';
+
+            if (chosenLanguage === 'korean') {
+                pageTitle = '테스트2 결과';
+                resultsTitle = '이제 테스트 2이 끝났습니다.';
+                resultsDescription = `
+                <br>
+                    <span style='color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>**중요 알림**</span> 다음 페이지에서 단어 친숙도 설문지를 시작하기 전에 결과를 다운로드해주세요. 이 실험의 최종 단계에서는 <span style='color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>Google 설문지</span> 에서 결과 시트를 업로드하라고 요청될 것입니다.
+                `;
+                buttonText = '단어 친숙도 설문지로 이동';
+                downloadMessage = '다음 설문지로 진행하기 전에 결과를 다운로드해야 합니다.';
+            } else if (chosenLanguage === 'chinese') {
+                pageTitle = '测试2 结果';
+                resultsTitle = '您已经完成了测试2';
+                resultsDescription = `
+                <br>
+                    <span style='color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>**重要提示**</span> 请您在关闭此页面之前，请先下载测试结果。完成下一个单词熟悉度调查后，将进行谷歌问卷。您需要在 <span style='color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'> 谷歌问卷 </span>上传您的测试结果。
+                `;
+                buttonText = '进入 单词熟悉度测试';
+                downloadMessage = '进入单词熟悉度调查问卷之前，您必须先下载测试结果。';
+            }
+
+            document.getElementById('pagetitle').innerText = pageTitle;
+            document.getElementById('resultsTitle').innerText = resultsTitle;
+            document.getElementById('resultsDescription').innerHTML = resultsDescription;
+            document.getElementById('yourButton').innerText = buttonText;
+
+            let resultsDownloaded = false;
+
+            document.getElementById('downloadButton').addEventListener('click', function() {
+                const answerDurations = JSON.parse(localStorage.getItem('answerDurations')) || [];
+                const wordList = JSON.parse(localStorage.getItem('wordList')) || [];
+                const data = [];
+
+                for (let i = 0; i < wordList.length; i++) {
+                    data.push({
+                        Question: i + 1,
+                        Word: wordList[i],
+                        Answer: answerDurations[i].answer,
+                        'Reaction Time (seconds)': answerDurations[i].duration
+                    });
+                }
+
+                const worksheet = XLSX.utils.json_to_sheet(data);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "Results");
+
+                XLSX.writeFile(workbook, 'Test2_Results.xlsx');
+                resultsDownloaded = true;
+            });
+
+            document.getElementById('yourButton').addEventListener('click', function() {
+                if (resultsDownloaded) {
+                    window.location.href = 'fam.html';
+                } else {
+                    alert(downloadMessage);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
