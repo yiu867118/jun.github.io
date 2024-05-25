@@ -230,7 +230,7 @@
         };
 
 
-        let wordList = Array.from({ length: 146 }, (_, i) => `word_${String(i + 1).padStart(3, '0')}`);
+        let wordList = Array.from({ length: 10 }, (_, i) => `Tword_${String(i + 1).padStart(3, '0')}`);
         shuffleArray(wordList); // 洗牌单词列表
 
         // 洗牌数组的函数
@@ -255,7 +255,7 @@
 
             if (currentQuestionIndex < wordList.length) {
                 const word = wordList[currentQuestionIndex];
-                audioPlayer.src = `test1word/${word}.wav`;
+                audioPlayer.src = `test2word/${word}.wav`;
                 audioPlayer.load(); // 确保重新加载音频文件
                 audioPlayer.oncanplaythrough = function() {
                     playButton.disabled = false; // 当音频加载完毕后，启用播放按钮
@@ -293,69 +293,11 @@
         };
         
         function showResults() {
-            let resultHTML = `
-            <div id="resultsBox" style="border:2px solid black; padding: 10px; margin: 10px; overflow-x: auto;">
-                <h2 style='text-align:center;'>`;
-            // Add language-specific title for result page
-            const chosenLanguage = localStorage.getItem('chosenLanguage');
-            if (chosenLanguage === 'korean') {
-                resultHTML += `테스트1 결과</h2>
-                    <p style='text-align:left; line-height: 1.8;'>
-                        이제 테스트 1이 끝났습니다.<br>
-                        <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>**중요 알림**</span> 테스트2를 시작하기 전에 아래 테스트 결과 (표)를 스크린샷으로 캡처하고 저장해주세요 (PC의 경우 보통 windows key + shift + R). 다음 테스트 2를 마친 후에, 단어 친숙도 설문과 구글 설문이 있을 예정인데, 제일 마지막 단계인 <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>구글 설문</span>에 스크린샷을 업로드해야 합니다. 모든 결과가 한 장의 사진에 완전히 표시되지 않는 경우 여러 장의 사진을 따로 캡처할 수 있습니다. 협조해 주셔서 감사합니다.
-                    </p>`;
-            } else if (chosenLanguage === 'chinese') {
-                resultHTML += `测试1 结果</h2>
-                    <p style='text-align:left; line-height: 1.8;'>
-                        您已经完成了测试1!<br>
-                        <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>**重要提示**</span> 请您在关闭此页面之前，将测试结果截图并保存（PC 用户通常按下 Windows 键 + Shift + R）。完成下一个测试 2 后，将进行单词熟悉度调查问卷和谷歌问卷。您需要在最后一个步骤的 <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'> 谷歌问卷 </span>上传您的测试结果屏幕截图。如果所有结果无法在一张图片中完全展示，您可以单独截取多张图片。感谢您的理解!
-                    </p>`;
-            } else {
-                resultHTML += `Test1 Results</h2>
-                    <p style='text-align:left; line-height: 1.5;'>
-                        Now you’re done with Test 1. <br>
-                        <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>** Important **</span> Before starting Test 2 on the next page, please take a screenshot of your test results below and save it to your computer (Usually, PC users can use the Windows key + Shift + R to take a screenshot). In the final step of this experiment, <span style = 'color: #535353; text-shadow: 2px 2px 4px rgb(241, 254, 127);'>Google survey</span>, you will be asked to upload the screenshot. You may take more than one screenshots if the results don’t fit into one. Thank you for your cooperation!
-                    </p>`;
-            }
+            localStorage.setItem('answerDurations', JSON.stringify(answerDurations));
+            localStorage.setItem('wordList', JSON.stringify(wordList));
+            window.location.href = 'result1.html';
+        }
 
-            let tableHTML = '';
-            const wordLimit = 30; // 每个表格的单词限制
-            const numTables = Math.ceil(wordList.length / wordLimit); // 总共需要的表格数
-
-            for (let j = 0; j < numTables; j++) {
-                tableHTML += `<div style='overflow-x: auto; display: inline-block; vertical-align: top;'>`;
-                tableHTML += `<table style='width:100%; text-align:center; border: 2px solid black; font-size: 10px;'>`;
-                tableHTML += `<tr style='background-color: #f2f2f2;'><th>Question</th><th>Word</th><th>Answer</th><th>Reaction Time (seconds)</th></tr>`;
-
-                const startIndex = j * wordLimit;
-                const endIndex = Math.min((j + 1) * wordLimit, wordList.length);
-
-                for (let i = startIndex; i < endIndex; i++) {
-                    tableHTML += `<tr><td>${i + 1}</td><td>${wordList[i]}</td><td>${answerDurations[i].answer}</td><td>${answerDurations[i].duration}</td></tr>`;
-                }
-
-                tableHTML += `</table></div>`;
-            }
-
-            resultHTML += tableHTML;
-            resultHTML += "</div>"; // 关闭结果框div
-
-            // 将按钮放在结果框div外面
-            resultHTML += `
-            <div style='text-align:center; margin-top:20px;'>
-                <button id="yourButton" onclick="location.href='start2.html'">`;
-            // 根据语言选择添加“进入测试2”按钮
-            if (chosenLanguage === 'korean') {
-                resultHTML += `테스트 2 로 이동`;
-            } else if (chosenLanguage === 'chinese') {
-                resultHTML += `进入 Test 2`;
-            } else {
-                resultHTML += `Go to Test 2`;
-            }
-            resultHTML += `</button>
-            </div>`;
-            document.getElementById('quiz-container').innerHTML = resultHTML;       
-        };
 
         window.onload = function () {
             shuffleArray(wordList); // 洗牌单词列表
@@ -373,4 +315,5 @@
     </script>
 </body>
 </html>
+
 
