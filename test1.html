@@ -286,6 +286,7 @@
             if (currentQuestionIndex === wordList.length) {
                 showResults();
             } else {
+                audioStartTime = 0; // 
                 playNextWord();
                 questionNumberDisplay.innerHTML = `<strong>Word ${currentQuestionIndex + 1}</strong>`;
             }
