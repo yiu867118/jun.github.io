@@ -252,46 +252,42 @@
 
         
         function playNextWord() {
+            // Stop audio playback
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+
             if (currentQuestionIndex < wordList.length) {
                 const word = wordList[currentQuestionIndex];
                 audioPlayer.src = `test1word/${word}.wav`;
-                audioPlayer.load(); // 确保重新加载音频文件
+                audioPlayer.load(); // Ensure the audio file is reloaded
+
                 audioPlayer.oncanplaythrough = function() {
-                    playButton.disabled = false; // 当音频加载完毕后，启用播放按钮
-                    audioPlayer.oncanplaythrough = null; // 移除事件监听器，避免重复触发
+                    playButton.disabled = false; // Enable the play button when the audio is loaded
+                    audioStartTime = new Date().getTime(); // Update the start time right before the audio starts playing
+                    audioPlayer.oncanplaythrough = null; // Remove the event listener to avoid triggering it multiple times
                 };
                 updateProgressBar();
             }
-        }
-
-        // 添加预加载步骤
-        audioPlayer.preload = 'auto';
-        audioPlayer.oncanplaythrough = function() {
-            playButton.disabled = false; // 当音频加载完毕后，启用播放按钮
         };
-
 
         function recordAnswer(answer) {
             const answerEndTime = new Date().getTime();
             const answerDuration = (answerEndTime - audioStartTime) / 1000; // 计算反应时间
             answerDurations.push({ answer, duration: answerDuration });
-            // 停止音频播放
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
 
             // 禁用按钮
-        
             playButton.disabled = false;
 
-            currentQuestionIndex++;
-            if (currentQuestionIndex === wordList.length) {
+            if (currentQuestionIndex === wordList.length - 1) {
                 showResults();
             } else {
-                audioStartTime = 0; // 
+                currentQuestionIndex++;
                 playNextWord();
                 questionNumberDisplay.innerHTML = `<strong>Word ${currentQuestionIndex + 1}</strong>`;
             }
-        }
+        };
+
+
 
         function showResults() {
             localStorage.setItem('answerDurations', JSON.stringify(answerDurations));
@@ -317,5 +313,3 @@
     </script>
 </body>
 </html>
-
-
