@@ -234,7 +234,7 @@
 
 
 
-        let wordList = Array.from({ length: 146}, (_, i) => `word_${String(i + 1).padStart(3, '0')}`);
+        let wordList = Array.from({ length: 146}, (_, i) => `Tword_${String(i + 1).padStart(3, '0')}`);
         shuffleArray(wordList); // 洗牌单词列表
 
         // 洗牌数组的函数
@@ -258,7 +258,7 @@
 
             if (currentQuestionIndex < wordList.length) {
                 const word = wordList[currentQuestionIndex];
-                audioPlayer.src = `test1word/${word}.wav`;
+                audioPlayer.src = `test2word/${word}.wav`;
                 audioPlayer.load(); // Ensure the audio file is reloaded
 
                 audioPlayer.oncanplaythrough = function() {
