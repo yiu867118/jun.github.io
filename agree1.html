@@ -28,7 +28,7 @@
         .title {
             background: linear-gradient(to right, #73c2f6, hsl(202, 68%, 38%));
             color: #fff;
-            padding: 50px 0;
+            padding: 40px 0;
             text-align: center;
             font-size: 32px;
             font-weight: bold;
@@ -87,15 +87,22 @@
 
         button {
             background: linear-gradient(to right, #73c2f6, #5badd9);
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px auto; /* Center */
-            display: block; /* Centering effect */
-            font-size: 16px;
-            transition: background-color 0.3s ease; /* Smooth transition for background color */
+            display: block;
+            margin: 0 auto;
+            display: block;
+            margin: 0 auto;
+            width: auto; /* 设置按钮的宽度为自适应 */
+            padding: 0 20px; /* 添加内边距，使按钮更宽 */
+            height: 50px; /* 按钮的高度 */
+            line-height: 50px; /* 设置行高与按钮高度相同，使文本垂直居中 */
+            text-align: center; /* 文本水平居中 */
+            border-radius: 30px; /* 将边框半径设置为按钮高度的一半，使按钮成为椭圆形 */
+            color: #ffffff; /* 设置按钮文本的颜色 */
+            font-size: 16px; /* 设置按钮文本的字体大小 */
+            border: none; /* 移除按钮的边框 */
+            cursor: pointer; /* 将鼠标光标设置为手型 */
+            outline: none; /* 移除按钮的外观轮廓 */
+            transition: background-color 0.3s ease; /* 添加背景颜色变化的过渡效果 */
         }
 
         button:hover {
@@ -113,10 +120,16 @@
         <div class="title">Informed Consent for Research Participation</div>
         
         
+        <div class="language-selector">
+            <label for="languageSelect">Select Language:</label>
+            <select id="languageSelect" onchange="chooseLanguage(this.value)">
+                <option value="english">English</option>
+                <option value="korean">한국어</option>
+                <option value="chinese">中文</option>
+            </select>
+        </div>
         
-        
- 
-        <br>
+
         <div class="intro"></div>
 
         <div class="image-container" id="imageContainer"></div>
@@ -170,5 +183,4 @@
 </body>
 
 </html>
-
 
